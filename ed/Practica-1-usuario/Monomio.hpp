@@ -204,19 +204,64 @@ class Monomio
 				\post El coeficiente del monomio actual se ha decrementado con el coeficiente
 				del monomio “m”.
 				\post El grado del monomio actual no ha sido modificado.
-				\sa operador-=
+				\sa operador+=
 				\sa operador*=
 				\sa operador/=
 		*/
 		Monomio & operator-=(Monomio const &m);
-
+		/*!
+				\fn operador*=
+				\brief Modifica el monomio multiplicandole otro monomio de igual grado
+				\note ninguna
+				\return return *this
+				\post El coeficiente del monomio actual se ha multiplicado por el coeficiente
+				del monomio “m”.
+				\post El grado del monomio actual se ha incrementado con el grado del monomio “m”.
+				\sa operador+=
+				\sa operador-=
+				\sa operador/=
+		*/
 		Monomio & operator*=(Monomio const &m);
-
+		/*!
+				\fn operador/=
+				\brief Modifica el monomio dividiendole otro monomio de igual grado
+				\note ninguna
+				\return return *this
+				\pre El grado del monomio “m” es igual o inferior al grado del monomio actual.
+				\pre El coeficiente del monomios “m” no es 0.0.
+				\post El coeficiente del monomio actual se ha decrementado con el coeficiente
+				del monomio “m”.
+				\post El grado del monomio actual no ha sido modificado.
+				\sa operador+=
+				\sa operador*=
+				\sa operador/=
+		*/
 		Monomio & operator/=(Monomio const &m);
-
-		Monomio & operator*=(Monomio const &m);
-
-		Monomio & operator/=(Monomio const &m);
+		/*!
+				\fn operador*=
+				\brief Modifica el monomio multiplicándolo por un número real.
+				\note ninguna
+				\return return *this
+				\post El coeficiente del monomio actual se ha multiplicado por el número real
+					“x”.
+				\post El grado del monomio actual no ha sido modificado.
+				\sa operador+=
+				\sa operador*=
+				\sa operador/=
+		*/
+		Monomio & operator*=(double const &m);
+		/*!
+				\fn operador/=
+				\brief Modifica el monomio dividiéndolo por un número real.
+				\return return *this
+				\pre El número real “x” no es 0.0
+				\post El coeficiente del monomio actual se ha dividido por el número real “x”.
+				\post El grado del monomio actual no ha sido modificado.
+				\sa operador+=
+				\sa operador*=
+				\sa operador/=
+		*/
+		Monomio & operator/=(double const &m);
 		// COMPLETAR EL RESTO DE OPERADORES
 
 

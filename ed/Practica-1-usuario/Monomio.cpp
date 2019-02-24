@@ -67,8 +67,36 @@ ed::Monomio & ed::Monomio::operator+=(ed::Monomio const &m)
 ed::Monomio & ed::Monomio::operator-=(ed::Monomio const &m)
 {
 	#ifndef NDEBUG
-	assert();
+	assert(this->getGrado() == m.getGrado());
 	#endif //NDEBUG	
+
+	this->setGrado(getGrado() - m.getGrado());
+	this->setCoeficiente(getCoeficiente() - m.getCoeficiente());
+
+	#ifndef NDEBUG
+	assert(std::abs(this->getCoeficiente() - m.getCoeficiente()) < COTA_ERROR);
+	assert(this->getGrado() == m.getGrado());
+	#endif //NDEBUG
+	
+	return *this;
+}
+ed::Monomio & ed::Monomio::operator*=(ed::Monomio const &m)
+{
+	return *this;
+}
+
+ed::Monomio & ed::Monomio::operator/=(ed::Monomio const &m)
+{
+	return *this;
+}
+ed::Monomio & ed::Monomio::operator*=(double const &m)
+{
+	return *this;
+}
+
+ed::Monomio & ed::Monomio::operator/=(double const &m)
+{
+	return *this;
 }
 
 

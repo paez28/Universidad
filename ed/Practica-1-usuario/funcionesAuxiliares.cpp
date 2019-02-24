@@ -116,7 +116,7 @@ void ed::testMonomio()
 
 	////////////////////////////////////////////////////////
 	// Operadores de asignación
-/*
+
 	// Asignación de un monomio a otro monomio
 	std::cout << BIGREEN;
 	std::cout<< "Operadores de asignación "<< std::endl;
@@ -185,7 +185,7 @@ void ed::testMonomio()
 	std::cout<< "m1 = ";
 	m1.escribirMonomio();
 	std::cout << std::endl << std::endl;
-
+/*
 	// Operador de multiplicación y asignación
 	std::cout<< "Operador m1 *= m2"<< std::endl;
 	std::cout<< "m1 = ";
