@@ -23,7 +23,6 @@ class Monomio
 	//! \name Atributos privados de la clase Monomio
 	private:
 
-	// COMPLETAR
 	int grado_; //!< Grado del monomio
 	double coeficiente_; //!< Coeficiente del monomio
 
@@ -151,37 +150,35 @@ class Monomio
 	//! \name Operadores de la clase Monomio
 
 
-	// Operadores de asignación
+	
 
-	/*!
-			\fn operador =
+		/*!
+			\fn Monomio & operator=(Monomio const &m)
 			\brief operador que devuelve el monomio actual con atributos
 			\note ninguna
 			\return return *this
 			\pre ninguna
-			\post El coeficiente del monomio es igual al coeficiente del monomio “m"
-			\post El coeficiente del monomio es igual al coeficiente del monomio “m"
-			\sa operador=
-	*/
+			\post El coeficiente del monomio es igual al coeficiente del monomio “m". 
+			\post El coeficiente del monomio es igual al coeficiente del monomio “m".
+			\sa Monomio & operator=(double const &x)
+		*/
 		Monomio & operator=(Monomio const &m);
 
 		/*!
-				\fn operador =
+				\fn Monomio & operator=(double const &x)
 				\brief operador que devuelve el monomio actual con atributos de grado 0
 				\note ninguna
 				\return return *this
 				\pre ninguna
-				\post El grado del monomio es igual 0.
+				\post El grado del monomio es igual 0. 
 				\post El coeficiente del monomio es igual al número real “x”.
-				\sa operador=
+				\sa Monomio & operator=(Monomio const &m)
 		*/
 		Monomio & operator=(double const &x);
 
 
-	// Operadores aritméticos y asignación
-
-	/*!
-			\fn operador+=
+		/*!
+			\fn Monomio & operator+=(Monomio const &m)
 			\brief Modifica el monomio sumandole otro monomio de igual grado
 			\note ninguna
 			\return return *this
@@ -189,14 +186,14 @@ class Monomio
 			\post El coeficiente del monomio actual se ha incrementado con el coeficiente
 			del monomio “m”.
 			\post El grado del monomio actual no ha sido modificado.
-			\sa operador-=
-			\sa operador*=
-			\sa operador/=
-	*/
+			\sa Monomio & operator-=(Monomio const &m)
+			\sa Monomio & operator*=(Monomio const &m)
+			\sa Monomio & operator/=(Monomio const &m)
+		*/
 		Monomio & operator+=(Monomio const &m);
 
 		/*!
-				\fn operador-=
+				\fn Monomio & operator-=(Monomio const &m)
 				\brief Modifica el monomio restandole otro monomio de igual grado
 				\note ninguna
 				\return return *this
@@ -204,26 +201,28 @@ class Monomio
 				\post El coeficiente del monomio actual se ha decrementado con el coeficiente
 				del monomio “m”.
 				\post El grado del monomio actual no ha sido modificado.
-				\sa operador+=
-				\sa operador*=
-				\sa operador/=
+				\sa Monomio & operator+=(Monomio const &m)
+				\sa Monomio & operator*=(Monomio const &m)
+				\sa Monomio & operator/=(Monomio const &m)
 		*/
 		Monomio & operator-=(Monomio const &m);
+
 		/*!
-				\fn operador*=
+				\fn Monomio & operator*=(Monomio const &m)
 				\brief Modifica el monomio multiplicandole otro monomio de igual grado
 				\note ninguna
 				\return return *this
 				\post El coeficiente del monomio actual se ha multiplicado por el coeficiente
 				del monomio “m”.
 				\post El grado del monomio actual se ha incrementado con el grado del monomio “m”.
-				\sa operador+=
-				\sa operador-=
-				\sa operador/=
+				\sa Monomio & operator+=(Monomio const &m)
+				\sa Monomio & operator*=(double const &m)
+				\sa Monomio & operator/=(Monomio const &m)
 		*/
 		Monomio & operator*=(Monomio const &m);
+
 		/*!
-				\fn operador/=
+				\fn Monomio & operator/=(Monomio const &m)
 				\brief Modifica el monomio dividiendole otro monomio de igual grado
 				\note ninguna
 				\return return *this
@@ -232,37 +231,37 @@ class Monomio
 				\post El coeficiente del monomio actual se ha decrementado con el coeficiente
 				del monomio “m”.
 				\post El grado del monomio actual no ha sido modificado.
-				\sa operador+=
-				\sa operador*=
-				\sa operador/=
+				\sa Monomio & operator+=(Monomio const &m)
+				\sa Monomio & operator*=(Monomio const &m)
+				\sa Monomio & operator*=(double const &m)
 		*/
 		Monomio & operator/=(Monomio const &m);
 		/*!
-				\fn operador*=
+				\fn Monomio & operator*=(double const &m)
 				\brief Modifica el monomio multiplicándolo por un número real.
 				\note ninguna
 				\return return *this
 				\post El coeficiente del monomio actual se ha multiplicado por el número real
 					“x”.
 				\post El grado del monomio actual no ha sido modificado.
-				\sa operador+=
-				\sa operador*=
-				\sa operador/=
+				\sa Monomio & operator+=(Monomio const &m)
+				\sa Monomio & operator*=(Monomio const &m)
+				\sa Monomio & operator/=(Monomio const &m)
 		*/
 		Monomio & operator*=(double const &m);
 		/*!
-				\fn operador/=
+				\fn Monomio & operator/=(double const &m)
 				\brief Modifica el monomio dividiéndolo por un número real.
 				\return return *this
 				\pre El número real “x” no es 0.0
 				\post El coeficiente del monomio actual se ha dividido por el número real “x”.
 				\post El grado del monomio actual no ha sido modificado.
-				\sa operador+=
-				\sa operador*=
-				\sa operador/=
+				\sa Monomio & operator+=(Monomio const &m)
+				\sa Monomio & operator*=(double const &m)
+				\sa Monomio & operator/=(Monomio const &m)
 		*/
 		Monomio & operator/=(double const &m);
-		// COMPLETAR EL RESTO DE OPERADORES
+		
 
 
 	/////////////////////////////////////////////////////////////////////////////////////
@@ -294,7 +293,14 @@ class Monomio
 
 	//! \name Funciones auxiliares de la clase Monomio
 
-	// COMPLETAR
+		/*!
+		 \fn calcularValor(double const &x)
+		 \brief Funcion que calcula el valor del Monomio para un numero real
+		 \return this
+		 \pre Ninguna
+		 \post Ninguna
+	 */
+	double  calcularValor(double const &x);
 
 
 

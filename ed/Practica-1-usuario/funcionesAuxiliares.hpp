@@ -17,11 +17,21 @@ namespace ed
 	*/
 	int menu();
 
-	// COMPLETAR LOS COMENTARIOS DE DOXYGEN
+	/*!
+      \fn funcion test de la clase monomio
+      \brief Funcion que realiza un test a la clase monomio
+      \return Ninguno
+      \sa operadoresExternosMonomios()
+  */
 	void testMonomio();
 
 
-	// COMPLETAR LOS COMENTARIOS DE DOXYGEN
+	/*!
+      \fn funcion test de la clase operadores Externos
+      \brief Funcion que realiza un test a la clase operadoresExternos
+      \return Ninguno
+      \sa testMonomio()
+  */
 	void operadoresExternosMonomios();
 
 } // Fin del espacio de nombre de la asignatura: ed

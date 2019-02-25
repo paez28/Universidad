@@ -53,15 +53,18 @@ ed::Monomio & ed::Monomio::operator+=(ed::Monomio const &m)
 	#ifndef NDEBUG
 	assert(this->getGrado() == m.getGrado());
 	#endif //NDEBUG
-	this->setGrado(getGrado() + m.getGrado());
-	this->setCoeficiente(getCoeficiente() + m.getGrado());
+	//this->setGrado(getGrado() + m.getGrado());
+	//this->setCoeficiente(getCoeficiente() + m.getGrado());
+	ed::Monomio aux;
+	aux.setCoeficiente(this->getCoeficiente()+m.getCoeficiente());
+	aux.setGrado(this->getGrado()+m.getGrado());
 	#ifndef NDEBUG
-	assert(std::abs(this->getCoeficiente() - m.getCoeficiente()) > COTA_ERROR);
+	assert(std::abs((this->getCoeficiente() - (aux.getCoeficiente()+m.getCoeficiente())) < COTA_ERROR));
 	assert(this->getGrado() == m.getGrado());
 	#endif //NDEBUG
 
 	// Se devuelve el objeto actual
-	return *this;
+	return aux;
 }
 
 ed::Monomio & ed::Monomio::operator-=(ed::Monomio const &m)
@@ -70,19 +73,31 @@ ed::Monomio & ed::Monomio::operator-=(ed::Monomio const &m)
 	assert(this->getGrado() == m.getGrado());
 	#endif //NDEBUG	
 
-	this->setGrado(getGrado() - m.getGrado());
-	this->setCoeficiente(getCoeficiente() - m.getCoeficiente());
+	//this->setGrado(getGrado() - m.getGrado());
+	//this->setCoeficiente(getCoeficiente() - m.getCoeficiente());
+	ed::Monomio aux;
+	aux.setCoeficiente(this->getCoeficiente()-m.getCoeficiente());
+	aux.setGrado(this->getGrado()-m.getGrado());
 
 	#ifndef NDEBUG
-	assert(std::abs(this->getCoeficiente() - m.getCoeficiente()) < COTA_ERROR);
+	assert(std::abs(this->getCoeficiente() -(aux.getCoeficiente() + m.getCoeficiente()) < COTA_ERROR));
 	assert(this->getGrado() == m.getGrado());
 	#endif //NDEBUG
 	
-	return *this;
+	return aux;
 }
 ed::Monomio & ed::Monomio::operator*=(ed::Monomio const &m)
 {
-	return *this;
+	Monomio aux;
+  aux.setGrado(getGrado() + m.getGrado());
+  aux.setCoeficiente(getCoeficiente()*m.getCoeficiente());
+
+	#ifndef NDEBUG
+	assert(std::abs(this->getCoeficiente()*m.getCoeficiente() - m) < COTA_ERROR);
+
+	#endif //NDEBUG
+
+  return aux;
 }
 
 ed::Monomio & ed::Monomio::operator/=(ed::Monomio const &m)
@@ -98,10 +113,6 @@ ed::Monomio & ed::Monomio::operator/=(double const &m)
 {
 	return *this;
 }
-
-
-
-// COMPLETAR EL RESTO DE OPERADORES
 
 
 ///////////////////////////////////////////////////////////////////////
@@ -167,5 +178,7 @@ void ed::Monomio::escribirMonomio()
 ///////////////////////////////////////////////////////////////////////
 
 // Funciones auxiliares de la clase Monomio
-
-// COMPLETAR
+double ed::Monomio::calcularValor(double const &x)
+{
+	return getCoeficiente()*pow(x, getGrado());
+}

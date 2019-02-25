@@ -1,7 +1,7 @@
 /*!
  \mainpage Implementación de un monomio
  \brief		\f$ coeficiente X^{grado}\f$
- \author   
+ \author   Martin Paez Anguita
  \date     
  \version  1.0
 */
