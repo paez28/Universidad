@@ -386,7 +386,7 @@ void ed::operadoresExternosMonomios()
 	std::cout << BIGREEN;
 	std::cout<< "Operadores que no son miembros de la clase" << std::endl << std::endl;
 	std::cout << RESET;
-	/*
+	
 	// Igualdad
 	std::cout << BIYELLOW;
 	std::cout<< "Operadores de igualdad" << std::endl << std::endl;
@@ -472,7 +472,7 @@ void ed::operadoresExternosMonomios()
 
 
 	////////////////
-	*/
+
 	// Unarios
 	std::cout << BIYELLOW;
 	std::cout<< "Operadores unarios" << std::endl << std::endl;
