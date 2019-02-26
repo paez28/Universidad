@@ -54,63 +54,101 @@ ed::Monomio & ed::Monomio::operator+=(ed::Monomio const &m)
 	assert(this->getGrado() == m.getGrado());
 	#endif //NDEBUG
 	//this->setGrado(getGrado() + m.getGrado());
-	//this->setCoeficiente(getCoeficiente() + m.getGrado());
-	ed::Monomio aux;
-	aux.setCoeficiente(this->getCoeficiente()+m.getCoeficiente());
-	aux.setGrado(this->getGrado()+m.getGrado());
+	this->setCoeficiente(getCoeficiente() + m.getCoeficiente());
+
 	#ifndef NDEBUG
-	assert(std::abs((this->getCoeficiente() - (aux.getCoeficiente()+m.getCoeficiente())) < COTA_ERROR));
+	assert(std::abs((this->getCoeficiente() - (m.getCoeficiente()+m.getCoeficiente())) < COTA_ERROR));
 	assert(this->getGrado() == m.getGrado());
 	#endif //NDEBUG
 
 	// Se devuelve el objeto actual
-	return aux;
+	return *this;
 }
+
 
 ed::Monomio & ed::Monomio::operator-=(ed::Monomio const &m)
 {
 	#ifndef NDEBUG
 	assert(this->getGrado() == m.getGrado());
-	#endif //NDEBUG	
+	#endif //NDEBUG
 
 	//this->setGrado(getGrado() - m.getGrado());
 	//this->setCoeficiente(getCoeficiente() - m.getCoeficiente());
-	ed::Monomio aux;
-	aux.setCoeficiente(this->getCoeficiente()-m.getCoeficiente());
-	aux.setGrado(this->getGrado()-m.getGrado());
+	double t = getCoeficiente();
+	setCoeficiente(this->getCoeficiente()-m.getCoeficiente());
 
 	#ifndef NDEBUG
-	assert(std::abs(this->getCoeficiente() -(aux.getCoeficiente() + m.getCoeficiente()) < COTA_ERROR));
-	assert(this->getGrado() == m.getGrado());
+	assert(std::abs(this->getCoeficiente() -(t-m.getCoeficiente())) < COTA_ERROR);
+	assert(this-> getGrado()== m.getGrado());
 	#endif //NDEBUG
-	
-	return aux;
+
+	return *this;
 }
 ed::Monomio & ed::Monomio::operator*=(ed::Monomio const &m)
 {
-	Monomio aux;
-  aux.setGrado(getGrado() + m.getGrado());
-  aux.setCoeficiente(getCoeficiente()*m.getCoeficiente());
+	int x = getGrado();
+	double t=getCoeficiente();
+  setGrado(getGrado() + m.getGrado());
+  setCoeficiente(getCoeficiente()*m.getCoeficiente());
 
 	#ifndef NDEBUG
-	assert(std::abs(this->getCoeficiente()*m.getCoeficiente() - m) < COTA_ERROR);
-
+	assert(std::abs(getCoeficiente()-(t*m.getCoeficiente()))<COTA_ERROR);
+	assert(getGrado()==(x+m.getGrado()));
 	#endif //NDEBUG
 
-  return aux;
+  return *this;
 }
 
 ed::Monomio & ed::Monomio::operator/=(ed::Monomio const &m)
 {
+	#ifndef NDEBUG
+	assert(m.getGrado()<=getGrado());
+	assert(not(std::abs(m.getCoeficiente() - 0.0) < COTA_ERROR));
+	#endif //NDEBUG
+
+	int x = getGrado();
+	double t=getCoeficiente();
+
+	setGrado(getGrado() - m.getGrado());
+	setCoeficiente(getCoeficiente()/m.getCoeficiente());
+
+	#ifndef NDEBUG
+	assert(std::abs(getCoeficiente()-(t/m.getCoeficiente()))<COTA_ERROR);
+	assert(getGrado()==(x-m.getGrado()));
+	#endif //NDEBUG
+
 	return *this;
 }
-ed::Monomio & ed::Monomio::operator*=(double const &m)
+ed::Monomio & ed::Monomio::operator*=(double x)
 {
+	int g = getGrado();
+	double t = getCoeficiente();
+	setCoeficiente(getCoeficiente() * x);
+
+	#ifndef NDEBUG
+	assert(std::abs(getCoeficiente() - (t*x)) < COTA_ERROR);
+	assert(getGrado() == g);
+	#endif //NDEBUG
+
 	return *this;
 }
 
-ed::Monomio & ed::Monomio::operator/=(double const &m)
+ed::Monomio & ed::Monomio::operator/=(double m)
 {
+
+#ifndef NDEBUG
+assert(not(std::abs(getCoeficiente() - 0.0) < COTA_ERROR));
+#endif //NDEBUG
+
+int g = getGrado();
+double t = getCoeficiente();
+setCoeficiente(getCoeficiente()/ m );
+
+#ifndef NDEBUG
+assert(std::abs(getCoeficiente() - (t/m)) < COTA_ERROR);
+assert(getGrado() == g);
+#endif //NDEBUG
+
 	return *this;
 }
 

@@ -1,8 +1,8 @@
 /*!
   \file   funcionesAuxiliares.hpp
   \brief  Funciones auxiliares para el programa principal de la práctica 1
-  \author 
-  \date  
+  \author Martin Paez Anguita
+  \date
 */
 
 
@@ -11,14 +11,14 @@
 
 namespace ed
 {
-	/*! 
-		\brief   Muestra el menú del programa principal 
+	/*!
+		\brief   Muestra el menú del programa principal
 		\return  Devuelve el número de opción elegido
 	*/
 	int menu();
 
 	/*!
-      \fn funcion test de la clase monomio
+      \fn void testMonomio()
       \brief Funcion que realiza un test a la clase monomio
       \return Ninguno
       \sa operadoresExternosMonomios()
@@ -27,7 +27,7 @@ namespace ed
 
 
 	/*!
-      \fn funcion test de la clase operadores Externos
+      \fn void operadoresExternosMonomios()
       \brief Funcion que realiza un test a la clase operadoresExternos
       \return Ninguno
       \sa testMonomio()
@@ -38,4 +38,3 @@ namespace ed
 
 // Fin de _FUNCIONESAUXILIARES_HPP_
 #endif
-

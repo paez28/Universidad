@@ -32,7 +32,7 @@ class Monomio
 	//! \name Constructores de la clase Monomio
 
 	/*!
-			\fn inline Monomio
+			\fn inline Monomio(double coeficiente = 0.0, int grado = 0)
 			\brief Constructor que crea un Monomio nulo
 			\attention Funcion sobrecargada
 			\note Funcion inline
@@ -116,14 +116,14 @@ class Monomio
 			\post El grado del monomio es igual al número entero “n”.
 			\sa setGrado()
 	*/
-	inline void setGrado(int g)
+	inline void setGrado(int n)
 	{
 		#ifndef NDEBUG
-		assert( g >= 0);
+		assert( n >= 0);
 		#endif //NDEBUG
-		grado_=g;
+		grado_=n;
 		#ifndef NDEBUG
-		assert( getGrado() == g);
+		assert( getGrado() == n);
 		#endif //NDEBUG
 	}
 	/*!
@@ -150,7 +150,7 @@ class Monomio
 	//! \name Operadores de la clase Monomio
 
 
-	
+
 
 		/*!
 			\fn Monomio & operator=(Monomio const &m)
@@ -158,7 +158,7 @@ class Monomio
 			\note ninguna
 			\return return *this
 			\pre ninguna
-			\post El coeficiente del monomio es igual al coeficiente del monomio “m". 
+			\post El coeficiente del monomio es igual al coeficiente del monomio “m".
 			\post El coeficiente del monomio es igual al coeficiente del monomio “m".
 			\sa Monomio & operator=(double const &x)
 		*/
@@ -170,7 +170,7 @@ class Monomio
 				\note ninguna
 				\return return *this
 				\pre ninguna
-				\post El grado del monomio es igual 0. 
+				\post El grado del monomio es igual 0.
 				\post El coeficiente del monomio es igual al número real “x”.
 				\sa Monomio & operator=(Monomio const &m)
 		*/
@@ -237,7 +237,7 @@ class Monomio
 		*/
 		Monomio & operator/=(Monomio const &m);
 		/*!
-				\fn Monomio & operator*=(double const &m)
+				\fn Monomio & operator*=(double m)
 				\brief Modifica el monomio multiplicándolo por un número real.
 				\note ninguna
 				\return return *this
@@ -248,9 +248,9 @@ class Monomio
 				\sa Monomio & operator*=(Monomio const &m)
 				\sa Monomio & operator/=(Monomio const &m)
 		*/
-		Monomio & operator*=(double const &m);
+		Monomio & operator*=(double m);
 		/*!
-				\fn Monomio & operator/=(double const &m)
+				\fn Monomio & operator/=(double m)
 				\brief Modifica el monomio dividiéndolo por un número real.
 				\return return *this
 				\pre El número real “x” no es 0.0
@@ -260,8 +260,8 @@ class Monomio
 				\sa Monomio & operator*=(double const &m)
 				\sa Monomio & operator/=(Monomio const &m)
 		*/
-		Monomio & operator/=(double const &m);
-		
+		Monomio & operator/=(double m);
+
 
 
 	/////////////////////////////////////////////////////////////////////////////////////

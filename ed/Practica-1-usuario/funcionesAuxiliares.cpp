@@ -1,7 +1,7 @@
 /*!
   \file   funcionesAuxiliares.cpp
   \brief  Código de las funciones auxiliares para el programa principal de la práctica 1
-  \author
+  \author Martin Paez Anguita
   \date
 */
 
@@ -185,7 +185,7 @@ void ed::testMonomio()
 	std::cout<< "m1 = ";
 	m1.escribirMonomio();
 	std::cout << std::endl << std::endl;
-/*
+
 	// Operador de multiplicación y asignación
 	std::cout<< "Operador m1 *= m2"<< std::endl;
 	std::cout<< "m1 = ";
@@ -312,7 +312,7 @@ void ed::testMonomio()
 	std::cout << std::endl;
 	std::cout<< "m3(" << x << ") = " << m3.calcularValor(x) << std::endl << std::endl;
 
-*/
+
 
 	// Fin
 	return;
@@ -332,7 +332,7 @@ void ed::operadoresExternosMonomios()
 	std::cout << "Quitar el comentario de bloque cuando se haya codificado la clase Monomio y los operadores externos de dicha clase" << std::endl << std::endl;
 
 
-/*
+
 	double x;
 
 	// Constructor por defecto
@@ -386,7 +386,7 @@ void ed::operadoresExternosMonomios()
 	std::cout << BIGREEN;
 	std::cout<< "Operadores que no son miembros de la clase" << std::endl << std::endl;
 	std::cout << RESET;
-
+	/*
 	// Igualdad
 	std::cout << BIYELLOW;
 	std::cout<< "Operadores de igualdad" << std::endl << std::endl;
@@ -472,7 +472,7 @@ void ed::operadoresExternosMonomios()
 
 
 	////////////////
-
+	*/
 	// Unarios
 	std::cout << BIYELLOW;
 	std::cout<< "Operadores unarios" << std::endl << std::endl;
@@ -485,7 +485,7 @@ void ed::operadoresExternosMonomios()
 	std::cout << "- m2 = " << - m2 << std::endl;
 
 	std::cout << std::endl;
-
+	
 	// Operadores ariméticos binarios
 	std::cout << BIYELLOW;
 	std::cout<< "Operadores ariméticos binarios" << std::endl;
@@ -504,7 +504,7 @@ void ed::operadoresExternosMonomios()
 		std::cout << "m1 = " << m1 << std::endl;
 		std::cout << "m2 = " << m2 << std::endl;
 	}
-
+	
 	std::cout << "m1 * m2 = " << m1 * m2 << std::endl;
 
 
@@ -563,7 +563,6 @@ void ed::operadoresExternosMonomios()
 
 
 	std::cout << std::endl;
-*/
 
 	return;
 }
