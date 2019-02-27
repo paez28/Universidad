@@ -271,12 +271,12 @@ namespace ed
 
 		ed::Monomio *nuevo = new ed::Monomio();
 
-		nuevo->setGrado(m1.getGrado()+ x);
+		nuevo->setGrado(m1.getGrado());
 		nuevo->setCoeficiente(m1.getCoeficiente()* x );
 
 		#ifndef NDEBUG
 
-		assert(nuevo->getGrado()==(m1.getGrado()+x));
+		assert(nuevo->getGrado()==m1.getGrado());
 		assert(std::abs(nuevo->getCoeficiente()-(m1.getCoeficiente()* x ))<COTA_ERROR);
 
 		#endif
@@ -288,12 +288,12 @@ namespace ed
 	{
 		ed::Monomio *nuevo = new ed::Monomio();
 
-		nuevo->setGrado( x + m2.getGrado());
+		nuevo->setGrado(m2.getGrado());
 		nuevo->setCoeficiente( x * m2.getCoeficiente());
 
 		#ifndef NDEBUG
 
-		assert(nuevo->getGrado()==( x + m2.getGrado()));
+		assert(nuevo->getGrado()==m2.getGrado());
 		assert(std::abs(nuevo->getCoeficiente()-( x * m2.getCoeficiente()))<COTA_ERROR);
 
 		#endif
@@ -334,6 +334,9 @@ namespace ed
 
 	ed::Monomio & operator/ (ed::Monomio const &m1, double x)
 	{
+		#ifndef NDEBUG
+		assert(not(std::abs(x - 0) < COTA_ERROR));
+		#endif //NDEBUG
 		// Se crea un nuevo objeto
 		ed::Monomio *nuevo = new ed::Monomio();
 
@@ -382,8 +385,11 @@ namespace ed
         std::cout<<"Introduzca el coeficiente"<<std::endl;
         stream>>coeficiente;
 
+		do{
         std::cout<<"Introduzca el grado"<<std::endl;
         stream>>grado;
+		}while(grado <=0);
+
 
         m.setCoeficiente(coeficiente);
         m.setGrado(grado);	
