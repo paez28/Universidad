@@ -10,5 +10,14 @@ main: main.cpp persona.cpp persona.hpp arbolbinarioordenadoenlazado.hpp operador
 	@echo  "////////////////////////////////////////////////////"
 	@echo
 
+# Generación de la documentación
+doc: Doxyfile 
+	@echo "Generando la documentación con doxygen"
+	@doxygen
+	
+# Borrado
+.PHONY: clean  
 clean:
-	rm -f *.o *.exe
+	@echo "Borrando los ficheros superfluos"
+	@rm -f $(OBJECTS) *~ 
+	
