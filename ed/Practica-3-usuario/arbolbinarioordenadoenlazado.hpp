@@ -42,6 +42,10 @@ namespace ed
 			NodoArbolBinario (const G &info)
 			{
 				// TODO
+				_info=info;
+				#ifndef NDEBUG
+				assert();
+				#endif //NDEBUG
 			}
 			/*!
 			\fn NodoArbolBinario (const NodoArbolBinario &n)
