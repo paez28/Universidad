@@ -38,11 +38,11 @@ namespace ed
 			\brief Crea un nuevo nodo con la información de “info”
 			\pre Ninguna
 			\post  El nodo creado no tiene hijos
-			*/	
+			*/
 			NodoArbolBinario (const G &info)
-			{	
+			{
 				//_info=info;
-				
+
 				this->setInfo(info);
 				this->setDerecho(NULL);
 				this->setIzquierdo(NULL);
@@ -60,7 +60,7 @@ namespace ed
 			{
 				this->setInfo(n.getInfo());
 				this->setDerecho(n.getDerecho());
-				this->setIzquierdo(n.getIzquierdo());	
+				this->setIzquierdo(n.getIzquierdo());
 				#ifndef NDEBUG
 				assert(this->getInfo()==n.getInfo() &&
 				this->getIzquierdo()==n.getIzquierdo() &&
@@ -114,7 +114,7 @@ namespace ed
 			{
 				if(operador != NULL)
 				{
-					recorridoPreOrden(operador->getIzquierdo());
+					recorridoPreOrden(operador->getIzquierdo()); //si el operador es distinto a nulo asignamos los hijos izq y dere al puntero para recorrerlo
 					recorridoPreOrden(operador->getDerecho());
 				}
 			}
@@ -131,7 +131,7 @@ namespace ed
 					recorridoPostOrden(operador->getDerecho());
 
 				}
-				
+
 			}
 
 			/*!
@@ -144,7 +144,7 @@ namespace ed
 					recorridoInOrden(operador->getIzquierdo());
 					recorridoInOrden(operador->getDerecho());
 				}
-				
+
 			}
 			/*!\brief Modificadores. */
 
@@ -188,7 +188,7 @@ namespace ed
 						this->getIzquierdo() != n.getIzquierdo() );
 				#endif //NDEBUG
 				this->setDerecho(n.getDerecho());
-				this->setIzquierdo(n.getIzquierdo());
+				this->setIzquierdo(n.getIzquierdo()); // asignamos el nodo que se pasa por referencia a los set izq y der
 
 				#ifndef NDEBUG
 				assert(this->getDerecho() == n.getDerecho() &&
@@ -210,10 +210,17 @@ namespace ed
 		\brief Crea un nuevo árbol vacío
 		\pre Ninguna
 		\post El árbol creado está vacío
-		*/	
+		*/
 		ArbolBinarioOrdenadoEnlazado ()
 		{
-			// TODO
+
+			this->_raiz = NULL;
+			this->_actual = NULL;
+			this->_padre = NULL;
+
+		#ifndef NDEBUG
+		assert(estaVacio());
+		#endif //NDEBUG
 		}
 
 		/*!
@@ -221,10 +228,19 @@ namespace ed
 		\brief Crea un nuevo árbol a partir de otro árbol.
 		\pre Ninguna
 		\post El árbol creado es igual al árbol “a”.
-		*/	
+		*/
 		ArbolBinarioOrdenadoEnlazado (const ArbolBinarioOrdenadoEnlazado<G>& a)
 		{
-			// TODO
+			_raiz = a._raiz;
+			_actual = a._actual;
+			_padre = a._padre;
+
+			#ifndef NDEBUG
+			assert(_raiz == a._raiz &&
+							_actual == a._actual &&
+							_padre = a._padre);
+			#endif //NDEBUG
+
 		}
 
 		/*!
@@ -232,23 +248,32 @@ namespace ed
 		\brief Destructor de arbol
 		\pre Ninguna
 		\post El árbol creado es nulo
-		*/	
+		*/
 		~ArbolBinarioOrdenadoEnlazado ()
 		{
 			if (not estaVacio())
 			borrarArbol();
 			cout << "Destructor Usado \n";
 		}
-		
+
 		/*!
 		\fn ArbolBinarioOrdenadoEnlazado &operator=(const ArbolBinarioOrdenadoEnlazado& a)
 		\brief operador= de la clase ArbolBinarioOrdenadoEnlazado
 		\pre Ninguna
 		\post El objeto creado tiene que ser igual al pasado
-		*/	
+		*/
 		ArbolBinarioOrdenadoEnlazado &operator=(const ArbolBinarioOrdenadoEnlazado& a)
 		{
-			// TODO
+			this->_raiz = a._raiz;
+			this->_actual = a._actual;
+			this->_padre = a._padre;
+
+			#ifndef NDEBUG
+			assert(this->_raiz == a._raiz &&
+						this->_actual == a._actual &&
+						this->_padre == a._padre);
+			#endif //NDEBUG
+
 		}
 
 		/*!
@@ -257,10 +282,9 @@ namespace ed
 		\pre Ninguna
 		\post 	El elemento debe estar en el árbol
 		\post	El árbol debe estar ordenado
-		*/	
+		*/
 		bool insertar(const G &x)
 		{
-			// TODO
 			return false;
 		}
 
@@ -269,10 +293,10 @@ namespace ed
 		\brief Elimina el árbol por completo
 		\pre El árbol no puede estar vacío
 		\post El árbol debe estar vacío
-		*/	
+		*/
 		void borrarArbol()
 		{
-			// TODO
+
 		}
 
 		/*!
@@ -280,38 +304,38 @@ namespace ed
 		\brief Elimina el nodo apuntado por “_actual”
 		\pre “_actual” debe apuntar a algún nodo
 		\post El elemento borrado no debe existir
-		*/	
+		*/
 		bool borrar()
 		{
-			// TODO
+
 			return false;
 		}
 
 		/*!
 		\fn void recorridoPreOrden (OperadorNodo<G> &operador) const
 		\brief Realiza el recorrido preorden del árbol aplicando el operador “op”.
-		*/	
+		*/
 		void recorridoPreOrden (OperadorNodo<G> &operador) const
 		{
-			// TODO
+
 		}
 
 		/*!
 		\fn void recorridoPostOrden (OperadorNodo<G> &operador) const
 		\brief Realiza el recorrido inorden del árbol aplicando el operador “op”.
-		*/	
+		*/
 		void recorridoPostOrden (OperadorNodo<G> &operador) const
 		{
-			// TODO
+
 		}
 
 		/*!
 		\fn void recorridoInOrden (OperadorNodo<G> &operador) const
 		\brief Realiza el recorrido postorden del árbol aplicando el operador “op”.
-		*/	
+		*/
 		void recorridoInOrden (OperadorNodo<G> &operador) const
 		{
-			// TODO
+
 		}
 
 		/*!
@@ -319,20 +343,20 @@ namespace ed
 		\brief Busca un elemento en el árbol y actualiza el cursor de “_actual” y “_padre” si lo encuentra
 		\pre Ninguna
 		\post “_actual” debe apuntar al nodo encontrado, si lo encuentra
-		*/	
+		*/
 		bool buscar(const G& x) const
 		{
-			// TODO
+
 			return false;
 		}
 
 		/*!
 		\fn bool estaVacio() const
 		\brief Comprueba si el árbol está vacío
-		*/	
+		*/
 		bool estaVacio() const
 		{
-			// TODO
+
 			return false;
 		}
 
@@ -340,20 +364,21 @@ namespace ed
 		\fn G raiz() const
 		\brief Obtiene el dato almacenado en la raíz
 		\pre El árbol no puede estar vacío
-		*/	
+		*/
 		G raiz() const
 		{
-			// TODO
+
+
 		}
 
 		/*!
 		\fn bool existeActual() const
 		\brief Comprueba si “_actual” está apuntando a algún nodo
 		\pre El árbol no puede estar vacío
-		*/	
+		*/
 		bool existeActual() const
 		{
-			// TODO
+
 			return false;
 		}
 
@@ -361,10 +386,10 @@ namespace ed
 		\fn G actual() const
 		\brief Devuelve el dato almacenado por el nodo “_actual”
 		\pre “_actual” debe de apuntar a algún nodo
-		*/	
+		*/
 		G actual() const
 		{
-			// TODO
+
 		}
 
 		/*!@}*/
