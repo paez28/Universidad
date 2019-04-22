@@ -40,11 +40,14 @@ namespace ed
 			\post  El nodo creado no tiene hijos
 			*/	
 			NodoArbolBinario (const G &info)
-			{
-				// TODO
-				_info=info;
+			{	
+				//_info=info;
+				
+				this->setInfo(info);
+				this->setDerecho(NULL);
+				this->setIzquierdo(NULL);
 				#ifndef NDEBUG
-				assert();
+				assert(this->esHoja());
 				#endif //NDEBUG
 			}
 			/*!
@@ -55,7 +58,14 @@ namespace ed
 			*/
 			NodoArbolBinario (const NodoArbolBinario &n)
 			{
-				// TODO
+				this->setInfo(n.getInfo());
+				this->setDerecho(n.getDerecho());
+				this->setIzquierdo(n.getIzquierdo());	
+				#ifndef NDEBUG
+				assert(this->getInfo()==n.getInfo() &&
+				this->getIzquierdo()==n.getIzquierdo() &&
+				this->getDerecho()==n.getDerecho());
+				#endif //NDEBUG
 			}
 
 			/*!\brief Observadores.*/
@@ -65,7 +75,7 @@ namespace ed
 			*/
 			const G & getInfo() const
 			{
-				// TODO
+				return _info;
 			}
 			/*!
 			\fn NodoArbolBinario *getIzquierdo() const
@@ -73,7 +83,7 @@ namespace ed
 			*/
 			NodoArbolBinario *getIzquierdo() const
 			{
-				// TODO
+				return _izquierdo;
 			}
 			/*!
 			\fn NodoArbolBinario *getDerecho() const
@@ -81,7 +91,7 @@ namespace ed
 			*/
 			NodoArbolBinario *getDerecho() const
 			{
-				// TODO
+				return _derecho;
 			}
 			/*!
 			\fn bool esHoja() const
@@ -89,7 +99,10 @@ namespace ed
 			*/
 			bool esHoja() const
 			{
-				// TODO
+				//si no tiene hijos es hoja
+				if((this->getDerecho()==NULL) && this->getIzquierdo()==NULL){
+					return true;
+				}
 				return false;
 			}
 
@@ -99,7 +112,11 @@ namespace ed
 			*/
 			void recorridoPreOrden (OperadorNodo<G> &operador) const
 			{
-				// TODO
+				if(operador != NULL)
+				{
+					recorridoPreOrden(operador->getIzquierdo());
+					recorridoPreOrden(operador->getDerecho());
+				}
 			}
 
 			/*!
@@ -108,7 +125,13 @@ namespace ed
 			*/
 			void recorridoPostOrden (OperadorNodo<G> &operador) const
 			{
-				// TODO
+				if(operador != NULL)
+				{
+					recorridoPostOrden(operador->getIzquierdo());
+					recorridoPostOrden(operador->getDerecho());
+
+				}
+				
 			}
 
 			/*!
@@ -117,9 +140,12 @@ namespace ed
 			*/
 			void recorridoInOrden (OperadorNodo<G> &operador) const
 			{
-				// TODO
+				if(operador != NULL){
+					recorridoInOrden(operador->getIzquierdo());
+					recorridoInOrden(operador->getDerecho());
+				}
+				
 			}
-
 			/*!\brief Modificadores. */
 
 			/*!
@@ -128,7 +154,7 @@ namespace ed
 			*/
 			void setInfo(const G &info)
 			{
-				// TODO
+				_info = info;
 			}
 
 			/*!
@@ -137,7 +163,7 @@ namespace ed
 			*/
 			void setIzquierdo(NodoArbolBinario *n)
 			{
-				// TODO
+			 	this->n.getIzquierdo();
 			}
 
 			/*!
@@ -146,7 +172,7 @@ namespace ed
 			*/
 			void setDerecho(NodoArbolBinario *n)
 			{
-				// TODO
+				this->n.getDerecho();
 			}
 
 			/*!
@@ -157,7 +183,17 @@ namespace ed
 			*/
 			NodoArbolBinario & operator=(const NodoArbolBinario &n)
 			{
-				// TODO
+				#ifndef NDEBUG
+				assert(this->getDerecho() != n.getDerecho() &&
+						this->getIzquierdo() != n.getIzquierdo() );
+				#endif //NDEBUG
+				this->setDerecho(n.getDerecho());
+				this->setIzquierdo(n.getIzquierdo());
+
+				#ifndef NDEBUG
+				assert(this->getDerecho() == n.getDerecho() &&
+						this->getIzquierdo() == n.getIzquierdo() );
+				#endif //NDEBUG
 			}
 
 		}; //Fin clase NodoArbolBinario
