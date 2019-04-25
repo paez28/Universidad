@@ -237,8 +237,8 @@ namespace ed
 
 			#ifndef NDEBUG
 			assert(_raiz == a._raiz &&
-							_actual == a._actual &&
-							_padre = a._padre);
+					_actual == a._actual &&
+					_padre = a._padre);
 			#endif //NDEBUG
 
 		}
@@ -367,7 +367,7 @@ namespace ed
 		*/
 		G raiz() const
 		{
-
+			return this->_raiz;
 
 		}
 
