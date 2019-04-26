@@ -75,7 +75,7 @@ namespace ed
 			*/
 			const G & getInfo() const
 			{
-				return _info;
+				return this->_info;
 			}
 			/*!
 			\fn NodoArbolBinario *getIzquierdo() const
@@ -114,6 +114,7 @@ namespace ed
 			{
 				if(operador != NULL)
 				{
+					cout << operador->_info << " ";
 					recorridoPreOrden(operador->getIzquierdo()); //si el operador es distinto a nulo asignamos los hijos izq y dere al puntero para recorrerlo
 					recorridoPreOrden(operador->getDerecho());
 				}
@@ -128,6 +129,7 @@ namespace ed
 				if(operador != NULL)
 				{
 					recorridoPostOrden(operador->getIzquierdo());
+					cout << operador->_info << " ";
 					recorridoPostOrden(operador->getDerecho());
 
 				}
@@ -143,6 +145,7 @@ namespace ed
 				if(operador != NULL){
 					recorridoInOrden(operador->getIzquierdo());
 					recorridoInOrden(operador->getDerecho());
+					cout << operador->_info << " ";
 				}
 
 			}
@@ -163,7 +166,7 @@ namespace ed
 			*/
 			void setIzquierdo(NodoArbolBinario *n)
 			{
-			 	this->n.getIzquierdo();
+			 	this->_izquierdo = n;
 			}
 
 			/*!
@@ -172,7 +175,7 @@ namespace ed
 			*/
 			void setDerecho(NodoArbolBinario *n)
 			{
-				this->n.getDerecho();
+				this->_derecho = n;
 			}
 
 			/*!
@@ -187,6 +190,7 @@ namespace ed
 				assert(this->getDerecho() != n.getDerecho() &&
 						this->getIzquierdo() != n.getIzquierdo() );
 				#endif //NDEBUG
+
 				this->setDerecho(n.getDerecho());
 				this->setIzquierdo(n.getIzquierdo()); // asignamos el nodo que se pasa por referencia a los set izq y der
 
@@ -285,7 +289,27 @@ namespace ed
 		*/
 		bool insertar(const G &x)
 		{
-			return false;
+			/*if (this->_raiz == NULL) {
+				this->_raiz = new NodoArbolBinario(x);
+				return true;
+			}
+
+			if (this->buscar(x))
+				return false;
+
+			NodoArbolBinario* nodo = new NodoArbolBinario(x);
+
+			if (this->_padre->getInfo() > x) {
+
+				this->_padre->setIzquierdo(nodo);
+			}
+			else {
+				this->_padre->setDerecho(nodo);
+			}
+
+			return true;
+			*/
+		return false;
 		}
 
 		/*!
@@ -296,6 +320,9 @@ namespace ed
 		*/
 		void borrarArbol()
 		{
+			this->_raiz = NULL;
+			this->_actual = NULL;
+			this->_padre = NULL;
 
 		}
 
@@ -307,8 +334,29 @@ namespace ed
 		*/
 		bool borrar()
 		{
+			/*
+			if (!this->existeActual())
+				return false;
 
-			return false;
+			AlmacenarNodo<G> almacenador;
+
+			this->_actual->recorridoPostOrden(almacenador);
+
+			if (this->_padre->getInfo() > this->_actual->getInfo())
+			    this->_padre->setIzquierdo(NULL);
+
+            else
+                this->_padre->setDerecho(NULL);
+
+			std::vector<G> nodes = almacenador.vectorNodos();
+
+            for (int i = 1; i < nodes.size(); ++i) {
+                this->insertar(nodes[i]);
+            }
+
+			return true;
+			*/
+		return false;
 		}
 
 		/*!
@@ -356,6 +404,7 @@ namespace ed
 		*/
 		bool estaVacio() const
 		{
+			if(this->_raiz == NULL){return true;}
 
 			return false;
 		}
@@ -367,7 +416,11 @@ namespace ed
 		*/
 		G raiz() const
 		{
-			return this->_raiz;
+			#ifndef NDEBUG
+			assert(this->_raiz != NULL);
+			#endif //NDEBUG
+
+			return this->_raiz.getInfo();
 
 		}
 
@@ -378,8 +431,15 @@ namespace ed
 		*/
 		bool existeActual() const
 		{
+			#ifndef NDEBUG
+			assert(this->_raiz != NULL);
+			#endif //NDEBUG
+			
+			if(this->_actual == NULL){
+				return false;
+			}
 
-			return false;
+			return true;
 		}
 
 		/*!
@@ -389,6 +449,11 @@ namespace ed
 		*/
 		G actual() const
 		{
+			#ifndef NDEBUG
+			assert(this->_actual != NULL);
+			#endif //NDEBUG
+
+			return this->_actual.getInfo();
 
 		}
 
