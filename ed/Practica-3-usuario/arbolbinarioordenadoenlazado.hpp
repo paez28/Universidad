@@ -58,13 +58,11 @@ namespace ed
 			*/
 			NodoArbolBinario (const NodoArbolBinario &n)
 			{
-				this->setInfo(n.getInfo());
-				this->setDerecho(n.getDerecho());
-				this->setIzquierdo(n.getIzquierdo());
+				*this = n;
 				#ifndef NDEBUG
-				assert(this->getInfo()==n.getInfo() &&
-				this->getIzquierdo()==n.getIzquierdo() &&
-				this->getDerecho()==n.getDerecho());
+				assert(this->getInfo()==n.getInfo());
+				assert(this->getIzquierdo()==n.getIzquierdo());
+				assert(this->getDerecho()==n.getDerecho());
 				#endif //NDEBUG
 			}
 
@@ -75,7 +73,7 @@ namespace ed
 			*/
 			const G & getInfo() const
 			{
-				return this->_info;
+				return _info;
 			}
 			/*!
 			\fn NodoArbolBinario *getIzquierdo() const
@@ -112,12 +110,16 @@ namespace ed
 			*/
 			void recorridoPreOrden (OperadorNodo<G> &operador) const
 			{
-				if(operador != NULL)
-				{
-					cout << operador->_info << " ";
-					recorridoPreOrden(operador->getIzquierdo()); //si el operador es distinto a nulo asignamos los hijos izq y dere al puntero para recorrerlo
-					recorridoPreOrden(operador->getDerecho());
+				operador.aplicar(this->getInfo());
+
+				if(this->getIzquierdo() != NULL){ // si hay hijos el operador nodo empezara por la izqierda
+					this->getIzquierdo()->recorridoPreOrden(operador);
 				}
+
+				if(this->getDerecho() != NULL){
+					this->getDerecho()->recorridoPreOrden(operador);
+				}
+				
 			}
 
 			/*!
@@ -126,13 +128,21 @@ namespace ed
 			*/
 			void recorridoPostOrden (OperadorNodo<G> &operador) const
 			{
-				if(operador != NULL)
+				/*if(operador != NULL)
 				{
 					recorridoPostOrden(operador->getIzquierdo());
 					cout << operador->_info << " ";
 					recorridoPostOrden(operador->getDerecho());
 
+				}*/
+
+				if (this->getIzquierdo() != NULL){
+					this->getIzquierdo()->recorridoPreOrden(operador);
 				}
+				if (this->getDerecho() != NULL){
+					this->getDerecho()->recorridoPreOrden(operador);
+				}
+				operador.aplicar(this->getInfo());
 
 			}
 
@@ -142,12 +152,20 @@ namespace ed
 			*/
 			void recorridoInOrden (OperadorNodo<G> &operador) const
 			{
-				if(operador != NULL){
+				/*if(operador != NULL){
 					recorridoInOrden(operador->getIzquierdo());
 					recorridoInOrden(operador->getDerecho());
 					cout << operador->_info << " ";
-				}
+				}*/
 
+				if (this->getIzquierdo() != NULL){
+					this->getIzquierdo()->recorridoPreOrden(operador);
+				}
+				operador.aplicar(this->getInfo());
+
+				if (this->getDerecho() != NULL){
+					this->getDerecho()->recorridoPreOrden(operador);
+				}
 			}
 			/*!\brief Modificadores. */
 
@@ -166,7 +184,7 @@ namespace ed
 			*/
 			void setIzquierdo(NodoArbolBinario *n)
 			{
-			 	this->_izquierdo = n;
+			 	_izquierdo = n;
 			}
 
 			/*!
@@ -175,7 +193,7 @@ namespace ed
 			*/
 			void setDerecho(NodoArbolBinario *n)
 			{
-				this->_derecho = n;
+				_derecho = n;
 			}
 
 			/*!
@@ -188,15 +206,17 @@ namespace ed
 			{
 				#ifndef NDEBUG
 				assert(this->getDerecho() != n.getDerecho() &&
-						this->getIzquierdo() != n.getIzquierdo() );
+						this->getInfo() != n.getInfo() &&
+						this->getIzquierdo() != n.getIzquierdo());
 				#endif //NDEBUG
-
+				this->setInfo(n.getInfo());
 				this->setDerecho(n.getDerecho());
 				this->setIzquierdo(n.getIzquierdo()); // asignamos el nodo que se pasa por referencia a los set izq y der
 
 				#ifndef NDEBUG
 				assert(this->getDerecho() == n.getDerecho() &&
-						this->getIzquierdo() == n.getIzquierdo() );
+						this->getInfo() == n.getInfo() &&
+						this->getIzquierdo() == n.getIzquierdo());
 				#endif //NDEBUG
 			}
 
@@ -218,13 +238,13 @@ namespace ed
 		ArbolBinarioOrdenadoEnlazado ()
 		{
 
-			this->_raiz = NULL;
-			this->_actual = NULL;
-			this->_padre = NULL;
+			_raiz = NULL;
+			//this->_actual = NULL;
+			//this->_padre = NULL;
 
-		#ifndef NDEBUG
-		assert(estaVacio());
-		#endif //NDEBUG
+			#ifndef NDEBUG
+			assert(this->estaVacio());
+			#endif //NDEBUG
 		}
 
 		/*!
@@ -235,14 +255,15 @@ namespace ed
 		*/
 		ArbolBinarioOrdenadoEnlazado (const ArbolBinarioOrdenadoEnlazado<G>& a)
 		{
-			_raiz = a._raiz;
-			_actual = a._actual;
-			_padre = a._padre;
+			/*this->_raiz = a._raiz;
+			this->_actual = a._actual;
+			this->_padre = a._padre;*/
+			*this = a;
 
 			#ifndef NDEBUG
-			assert(_raiz == a._raiz &&
-					_actual == a._actual &&
-					_padre = a._padre);
+			assert(this->_raiz == a._raiz &&
+					this->_actual == a._actual &&
+					this->_padre = a._padre);
 			#endif //NDEBUG
 
 		}
@@ -274,8 +295,8 @@ namespace ed
 
 			#ifndef NDEBUG
 			assert(this->_raiz == a._raiz &&
-						this->_actual == a._actual &&
-						this->_padre == a._padre);
+					this->_actual == a._actual &&
+					this->_padre == a._padre);
 			#endif //NDEBUG
 
 		}
@@ -289,7 +310,8 @@ namespace ed
 		*/
 		bool insertar(const G &x)
 		{
-			/*if (this->_raiz == NULL) {
+			/* No se pqe no funciona puede ser que no haga bien recorrido preguntar
+			if (this->_raiz == NULL) {
 				this->_raiz = new NodoArbolBinario(x);
 				return true;
 			}
@@ -309,7 +331,38 @@ namespace ed
 
 			return true;
 			*/
-		return false;
+			
+				bool aux = false;
+				if (this->estaVacio()){
+					_raiz = new NodoArbolBinario(x); // si no hay elemento lo creamos y raiz apuntara al creado para almacenar
+					aux = true;
+				}
+				else{
+					_padre = NULL; // despejamos padre
+					_actual = _raiz;
+				}
+				while (! aux){
+					if (x > this->actual()){  // si el elemento que nos pasan
+						if (_actual->getDerecho() != NULL){ 
+							_padre = _actual;
+							_actual = _actual->getDerecho();
+						}else{
+							_actual->setDerecho(new NodoArbolBinario(x));
+							aux = true;
+						}
+					}else{
+						if (_actual->getIzquierdo() != NULL){
+							_padre = _actual;
+							_actual = _actual->getIzquierdo();
+						}else{
+							_actual->setIzquierdo(new NodoArbolBinario(x));
+							aux = true;
+						}
+					}
+
+				}
+				
+				return aux;
 		}
 
 		/*!
@@ -320,9 +373,17 @@ namespace ed
 		*/
 		void borrarArbol()
 		{
+			#ifndef NDEBUG
+			assert(! this->estaVacio());
+			#endif
+
 			this->_raiz = NULL;
 			this->_actual = NULL;
 			this->_padre = NULL;
+
+			#ifndef NDEBUG
+			assert(this->estaVacio());
+			#endif
 
 		}
 
@@ -334,29 +395,67 @@ namespace ed
 		*/
 		bool borrar()
 		{
-			/*
-			if (!this->existeActual())
-				return false;
+			NodoArbolBinario *aux_pt_actual;
+			NodoArbolBinario *aux_pt_padre;
+			aux_pt_actual = _actual;
+			aux_pt_padre = _padre;
+			bool borrado = false;
 
-			AlmacenarNodo<G> almacenador;
+			if(_actual->getDerecho() != NULL){
+				_padre = _actual;
+				_actual = _actual->getDerecho();
 
-			this->_actual->recorridoPostOrden(almacenador);
+				while(_actual->getIzquierdo() != NULL){
+					_padre = _actual;
+					_actual = _actual->getIzquierdo();
+				}
 
-			if (this->_padre->getInfo() > this->_actual->getInfo())
-			    this->_padre->setIzquierdo(NULL);
+				
+				if(_actual->getInfo() < _padre->getInfo()){
+					_padre->setIzquierdo(_actual->getDerecho());
+				}
+				else{
+					aux_pt_actual->setDerecho(_actual->getDerecho());
+				}
+				aux_pt_actual->setInfo(_actual->getInfo());
+				borrado = true;
+				_actual = aux_pt_actual;
+				_padre = aux_pt_padre;
+			}
+			else if (_actual->getIzquierdo() != NULL){
+				_padre = _actual;
+				_actual = _actual->getIzquierdo();
 
-            else
-                this->_padre->setDerecho(NULL);
+				while(_actual->getDerecho() != NULL){
+					_padre = _actual;
+					_actual = _actual->getDerecho();
+				}
 
-			std::vector<G> nodes = almacenador.vectorNodos();
+				if(_actual->getInfo() > _padre->getInfo()){
+					_padre->setDerecho(_actual->getIzquierdo());
+				}
+				else{
+					aux_pt_actual->setIzquierdo(_actual->getIzquierdo());
+				}
+				aux_pt_actual->setInfo(_actual->getInfo());
+				borrado = true;
+				_actual = aux_pt_actual;
+				_padre = aux_pt_padre;
 
-            for (int i = 1; i < nodes.size(); ++i) {
-                this->insertar(nodes[i]);
-            }
-
-			return true;
-			*/
-		return false;
+			}
+			else{
+				if (_raiz == _actual){
+					this->borrarArbol();
+				}
+				else if(_actual->getInfo() < _padre->getInfo()){
+					_padre->setIzquierdo(NULL);
+				}
+				else{
+					_padre->setDerecho(NULL);
+				}
+				borrado = true;
+			}
+			return borrado;
 		}
 
 		/*!
@@ -365,6 +464,8 @@ namespace ed
 		*/
 		void recorridoPreOrden (OperadorNodo<G> &operador) const
 		{
+	
+			_raiz->recorridoPreOrden(operador);
 
 		}
 
@@ -374,6 +475,7 @@ namespace ed
 		*/
 		void recorridoPostOrden (OperadorNodo<G> &operador) const
 		{
+			_raiz->recorridoPostOrden(operador);
 
 		}
 
@@ -383,6 +485,7 @@ namespace ed
 		*/
 		void recorridoInOrden (OperadorNodo<G> &operador) const
 		{
+			_raiz->recorridoInOrden(operador);
 
 		}
 
@@ -392,10 +495,39 @@ namespace ed
 		\pre Ninguna
 		\post “_actual” debe apuntar al nodo encontrado, si lo encuentra
 		*/
-		bool buscar(const G& x) const
+		bool buscar(const G& x)
 		{
 
-			return false;
+			bool aux = false;
+			_padre = NULL;
+			_actual = _raiz;
+
+			while((_actual != NULL)&&(! aux)){
+				if (_actual->getInfo() > x){
+					if (_actual->getIzquierdo() != NULL){
+						_padre = _actual;
+						_actual = _actual->getIzquierdo();
+					}else{
+						_actual = NULL;
+					}
+				}
+				else if(_actual->getInfo() < x){
+					if (_actual->getDerecho() != NULL){
+						_padre = _actual;
+						_actual = _actual->getDerecho();
+					}else{
+						_actual = NULL;
+					}
+				}else{
+					aux = true;
+				}
+			}
+			if (_actual == NULL){
+				_padre = NULL;
+				_actual = _raiz;
+			}
+
+			return aux;
 		}
 
 		/*!
@@ -404,7 +536,7 @@ namespace ed
 		*/
 		bool estaVacio() const
 		{
-			if(this->_raiz == NULL){return true;}
+			if(_raiz == NULL){return true;}
 
 			return false;
 		}
@@ -417,10 +549,10 @@ namespace ed
 		G raiz() const
 		{
 			#ifndef NDEBUG
-			assert(this->_raiz != NULL);
+			assert(! this->estaVacio());
 			#endif //NDEBUG
 
-			return this->_raiz.getInfo();
+			return _raiz->getInfo();
 
 		}
 
@@ -432,10 +564,10 @@ namespace ed
 		bool existeActual() const
 		{
 			#ifndef NDEBUG
-			assert(this->_raiz != NULL);
+			assert(! this->estaVacio());
 			#endif //NDEBUG
 			
-			if(this->_actual == NULL){
+			if(_actual == NULL){
 				return false;
 			}
 
@@ -450,10 +582,10 @@ namespace ed
 		G actual() const
 		{
 			#ifndef NDEBUG
-			assert(this->_actual != NULL);
+			assert(this->existeActual());
 			#endif //NDEBUG
 
-			return this->_actual.getInfo();
+			return _actual->getInfo();
 
 		}
 
