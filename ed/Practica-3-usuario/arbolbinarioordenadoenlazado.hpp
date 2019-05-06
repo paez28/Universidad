@@ -137,10 +137,10 @@ namespace ed
 				}*/
 
 				if (this->getIzquierdo() != NULL){
-					this->getIzquierdo()->recorridoPreOrden(operador);
+					this->getIzquierdo()->recorridoPostOrden(operador);
 				}
 				if (this->getDerecho() != NULL){
-					this->getDerecho()->recorridoPreOrden(operador);
+					this->getDerecho()->recorridoPostOrden(operador);
 				}
 				operador.aplicar(this->getInfo());
 
@@ -159,12 +159,12 @@ namespace ed
 				}*/
 
 				if (this->getIzquierdo() != NULL){
-					this->getIzquierdo()->recorridoPreOrden(operador);
+					this->getIzquierdo()->recorridoInOrden(operador);
 				}
 				operador.aplicar(this->getInfo());
 
 				if (this->getDerecho() != NULL){
-					this->getDerecho()->recorridoPreOrden(operador);
+					this->getDerecho()->recorridoInOrden(operador);
 				}
 			}
 			/*!\brief Modificadores. */

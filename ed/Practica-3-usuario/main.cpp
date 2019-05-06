@@ -11,17 +11,17 @@
 
 using namespace ed;
 
-void insertar(ed::ArbolBinarioOrdenadoEnlazado<Persona> &a);
-void mostrar(ed::ArbolBinarioOrdenadoEnlazado<Persona> &a);
-void Buscar(ed::ArbolBinarioOrdenadoEnlazado<Persona> &a);
-void BorrarPersona(ed::ArbolBinarioOrdenadoEnlazado<Persona> &a);
-void BorrarArbol(ed::ArbolBinarioOrdenadoEnlazado<Persona> &a);
+void insertar(ed::ArbolBinarioOrdenadoEnlazado<int> &a);
+void mostrar(ed::ArbolBinarioOrdenadoEnlazado<int> &a);
+void Buscar(ed::ArbolBinarioOrdenadoEnlazado<int> &a);
+void BorrarPersona(ed::ArbolBinarioOrdenadoEnlazado<int> &a);
+void BorrarArbol(ed::ArbolBinarioOrdenadoEnlazado<int> &a);
 
 int main()
 {
   //srand(time(0));
-  ArbolBinarioOrdenadoEnlazado<Persona> a;
-  //EscribirNodo<Persona> aux;
+  ArbolBinarioOrdenadoEnlazado<int> a;
+  //EscribirNodo<int> aux;
   int opcion = 0;
   int posicion = 0;
 
@@ -75,7 +75,7 @@ int main()
           BorrarArbol(a);
           std::cin.ignore();
           break;
-        /*default:
+       /* default:
 				  std::cout << BIRED;
 				  std::cout << "Opción incorrecta ";
 			  	std::cout << RESET;
@@ -166,12 +166,12 @@ int main()
   return 0;
 }
 
-void insertar (ed::ArbolBinarioOrdenadoEnlazado<Persona> &a){
+void insertar (ed::ArbolBinarioOrdenadoEnlazado<int> &a){
 
   system("clear");
-  EscribirNodo<Persona> aux;
-  int nPersonas,cont;
-	std::cout << "Numero de personas a insertar: ";
+  //EscribirNodo<int> aux;
+  //int nPersonas,cont;
+	/*std::cout << "Numero de personas a insertar: ";
   std::cin>>nPersonas;
   std::cout << RESET;
   cont = 0;
@@ -181,48 +181,68 @@ void insertar (ed::ArbolBinarioOrdenadoEnlazado<Persona> &a){
     }
 
   }
+
   std::cout << BYELLOW;
   std::cout<< "Se han insertado: "<<cont << " personas.";
-  std::cout<< RESET;
+  std::cout<< RESET;*/
+  a.insertar(10);
+  a.insertar(5);
+  a.insertar(1);
+  a.insertar(9);
+  a.insertar(7);
+  a.insertar(6);
+  a.insertar(8);
+  a.insertar(20);
+  a.insertar(15);
+  a.insertar(25);
+  a.insertar(22);
+  a.insertar(27);
+
 
   std::cin.ignore();
 
 }
 
-void mostrar(ed::ArbolBinarioOrdenadoEnlazado<Persona> &a){
+void mostrar(ed::ArbolBinarioOrdenadoEnlazado<int> &a){
 
   system("clear");
-  EscribirNodo<Persona> aux;
+  EscribirNodo<int> aux;
 
-  std::cout << BIBLUE;
-  std::cout << "Mostrar Arbol" <<std::endl;
-  std::cout<< RESET;
+  if(!a.estaVacio()){
+    std::cout << BIBLUE;
+    std::cout << "Mostrar Arbol" <<std::endl;
+    std::cout<< RESET;
 
-  std::cout<< BIYELLOW;
-  std::cout<<"PreOrden"<<std::endl;
-  std::cout<< RESET;
-  a.recorridoPreOrden(aux);
-  std::cout<<"\n\n";
+    std::cout<< BIYELLOW;
+    std::cout<<"PreOrden"<<std::endl;
+    std::cout<< RESET;
+    a.recorridoPreOrden(aux);
+    std::cout<<"\n\n";
 
-  std::cout<< BIYELLOW;
-  std::cout<<"PostOrden"<<std::endl;
-  std::cout<< RESET;
-  a.recorridoInOrden(aux);
-  std::cout<<"\n\n";
+    std::cout<< BIYELLOW;
+    std::cout<<"PostOrden"<<std::endl;
+    std::cout<< RESET;
+    a.recorridoInOrden(aux);
+    std::cout<<"\n\n";
 
-  std::cout<< BIYELLOW;
-  std::cout<<"InOrden"<<std::endl;
-  std::cout<< RESET;
-  a.recorridoPostOrden(aux);
-  std::cout<<"\n\n";
+    std::cout<< BIYELLOW;
+    std::cout<<"InOrden"<<std::endl;
+    std::cout<< RESET;
+    a.recorridoPostOrden(aux);
+    std::cout<<"\n\n";
+  }else{
+    std::cout<< BIYELLOW;
+    std::cout << "El arbol esta vacio " << endl;
+    std::cout<< RESET;
+  }
 
   std::cin.ignore();
 
 }
 
-void Buscar(ed::ArbolBinarioOrdenadoEnlazado<Persona> &a){
+void Buscar(ed::ArbolBinarioOrdenadoEnlazado<int> &a){
   system("clear");
-  Persona persona;
+  int persona;
 
   std::cout << BIYELLOW;
   std::cout << "Introduzca el nombre de la persona: ";
@@ -241,10 +261,10 @@ void Buscar(ed::ArbolBinarioOrdenadoEnlazado<Persona> &a){
   std::cin.ignore();
 
 }
-void BorrarPersona(ed::ArbolBinarioOrdenadoEnlazado<Persona> &a){
+void BorrarPersona(ed::ArbolBinarioOrdenadoEnlazado<int> &a){
   system("clear");
-  EscribirNodo<Persona> aux;
-  Persona persona;
+  EscribirNodo<int> aux;
+  int persona;
   std::cout<<"Introduzca la persona: "<<std::endl;
   std::cin>>persona;
 
@@ -265,7 +285,7 @@ void BorrarPersona(ed::ArbolBinarioOrdenadoEnlazado<Persona> &a){
   std::cin.ignore();
 }
 
-void BorrarArbol(ed::ArbolBinarioOrdenadoEnlazado<Persona> &a){
+void BorrarArbol(ed::ArbolBinarioOrdenadoEnlazado<int> &a){
   system("clear");
   if(!a.estaVacio()){
     a.borrarArbol();
