@@ -29,7 +29,7 @@ int main()
 				cout << "Grafo cargado correctamente \n";
 				//Prueba de la asignación y del destructor
 				{
-					Grafo<string, int> g1 = *g;
+					//Grafo<string, int> g1 = *g;
 				}
 			}
 			else
