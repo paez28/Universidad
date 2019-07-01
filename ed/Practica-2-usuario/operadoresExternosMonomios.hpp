@@ -1,4 +1,4 @@
-/*!
+/*! 
 	\file operadoresExternosMonomios.hpp
 	\brief Ficheros con los prototipos de los operadores externos de la clase Monomio
 */
@@ -8,7 +8,7 @@
 
 // Facilita la entrada y salida
 #include <iostream>
-
+#include <stdlib.h>
 #include "Monomio.hpp"
 
 // Para la sobrecarga de los operadores de flujo: << y >>
@@ -18,72 +18,163 @@ using std::ostream;
 // Espacio de nombre de la asigantura: ed
 namespace ed
 {
-//////////////////////////////////////////////////////////////////////////////////////
-	// Operadores externos que no pertenecen a la clase Monomio
+	//! \name Operadores de igualdad  
 
-	//! \name Operadores de igualdad
+    /**
+     * \brief Operador de igualdad
+     * \param const ed::Monomio &m1: referencia de un objeto monomio
+     * \param const ed::Monomio &m2: referencia de un objeto monomio
+     * \retval Booleano (true si son el mismo monomio, false si son distintos monomios)
+    */
+	bool operator== (const ed::Monomio &m1, const ed::Monomio &m2);
 
-	// COMPLETAR LOS COMENTARIOS DE DOXYGEN
-	bool operator==(ed::Monomio const & m1, ed::Monomio const & m2);
+    /**
+     * \brief Operador de igualdad
+     * \param const ed::Monomio &m: referencia de un objeto monomio
+     * \param const double x: coeficiente del monomio
+     * \retval Booleano (true si son el mismo monomio, false si son distintos monomios)
+    */
+	bool operator == (const ed::Monomio &m, const double x);
 
+    /**
+     * \brief Operador de igualdad
+     * \param const double x: coeficiente del monomio
+     * \param const ed::Monomio &m: referencia de un objeto monomio
+     * \retval Booleano (true si son el mismo monomio, false si son distintos monomios)
+    */
+	bool operator == (const double x, const ed::Monomio &m);
 
-	// COMPLETAR LOS OTROS OPERADORES DE IGUALDAD
+	//! \name Operadores de desigualdad 
 
+    /**
+     * \brief Operador de igualdad
+     * \param const ed::Monomio &m1: referencia de un objeto monomio
+     * \param const ed::Monomio &m2: referencia de un objeto monomio
+     * \retval Booleano (true si son el distinto monomio, false si son el mismo monomios)
+    */
+	bool operator!= (const ed::Monomio &m1, const ed::Monomio &m2);
 
-	//! \name Operadores de desigualdad
+    /**
+     * \brief Operador de igualdad
+     * \param const ed::Monomio &m: referencia de un objeto monomio
+     * \param const double x: coeficiente del monomio
+     * \retval Booleano (true si son el distinto monomio, false si son el mismo monomios)
+    */
+	bool operator != (const ed::Monomio &m, const double x);
 
-	// COMPLETAR LOS COMENTARIOS DE DOXYGEN
-	bool operator!=(ed::Monomio const & m1, ed::Monomio const & m2);
-
-	// COMPLETAR LOS OTROS OPERADORES DE DESIGUALDAD
-
-	///////////////////////////////////////////////////
+    /**
+     * \brief Operador de igualdad
+     * \param const double x: coeficiente del monomio
+     * \param const ed::Monomio &m: referencia de un objeto monomio
+     * \retval Booleano (true si son el distinto monomio, false si son el mismo monomios)
+    */
+	bool operator != (const double x, const ed::Monomio &m);
 
 	//! \name Operadores unarios prefijos
 
-	// COMPLETAR LOS COMENTARIOS DE DOXYGEN
+    /**
+     * \brief Operador de copia
+     * \param const ed::Monomio &m: referencia de un objeto monomio
+     * \retval Monomio copiado
+    */
+	ed::Monomio & operator + (const ed::Monomio &m);
 
-	ed::Monomio & operator+(ed::Monomio const & m);
+    /**
+     * \brief Operador de copia negada
+     * \param const ed::Monomio &m: referencia de un objeto monomio
+     * \retval Monomio copiado y negado
+    */
+	ed::Monomio & operator - (const ed::Monomio &m);
 
-	// COMPLETAR EL OTRO OPERADOR UNARIO PREFIJO: resta
+	//! \name Operador binario de la suma 
 
+    /**
+     * \brief Operador binario de suma
+     * \param const ed::Monomio &m1: referencia de un objeto monomio
+	 * \param const ed::Monomio &m2: referencia de un objeto monomio
+     * \retval Monomio igual a la suma de dos monomios
+    */
+	 ed::Monomio & operator + (const ed::Monomio &m1, const ed::Monomio &m2);
 
-	//////////////////////////////////////////////////////////
+	//! \name Operador binario de la resta 
 
-	//! \name Operador binario de la suma
+    /**
+     * \brief Operador binario de resta
+     * \param const ed::Monomio &m1: referencia de un objeto monomio
+	 * \param const ed::Monomio &m2: referencia de un objeto monomio
+     * \retval Monomio igual a la resta de dos monomios
+    */
+	 ed::Monomio & operator - (const ed::Monomio &m1, const ed::Monomio &m2);
 
-	// COMPLETAR LOS COMENTARIOS DE DOXYGEN
-	 ed::Monomio & operator+ (ed::Monomio const &m1, ed::Monomio const &m2);
+	//! \name Operadores binarios de la multiplicación 
 
+    /**
+     * \brief Operador binario de multiplicacion
+     * \param const ed::Monomio &m1: referencia de un objeto monomio
+	 * \param const ed::Monomio &m2: referencia de un objeto monomio
+     * \retval Monomio igual a la multiplicacion de dos monomios
+    */
+	 ed::Monomio & operator * (const ed::Monomio &m1, const ed::Monomio &m2);
 
-	//////////////////////////////////////////////////////////
-	//! \name Operador binario de la resta
+    /**
+     * \brief Operador binario de multiplicacion
+     * \param const ed::Monomio &m: referencia de un objeto monomio
+	 * \param const double x: coeficiente del monomio
+     * \retval Monomio igual a la multiplicacion de dos monomios
+    */
+	 ed::Monomio & operator * (const ed::Monomio &m, const double x);
 
-	// COMPLETAR
+    /**
+     * \brief Operador binario de multiplicacion
+     * \param const double x: coeficiente del monomio
+     * \param const ed::Monomio &m: referencia de un objeto monomio
+     * \retval Monomio igual a la multiplicacion de dos monomios
+    */
+	 ed::Monomio & operator * (double const x, const ed::Monomio &m);
 
+	//! \name Operadores binarios de la división 
 
-	///////////////////////////////////////////////////////////////////////////
-	//! \name Operadores binarios de la multiplicación
+    /**
+     * \brief Operador binario de division
+     * \param const ed::Monomio &m1: referencia de un objeto monomio
+	 * \param const ed::Monomio &m2: referencia de un objeto monomio
+     * \retval Monomio igual a la division de dos monomios
+    */
+	 ed::Monomio & operator / (const ed::Monomio &m1, const ed::Monomio &m2);
 
-	// COMPLETAR
+    /**
+     * \brief Operador binario de division
+     * \param const ed::Monomio &m: referencia de un objeto monomio
+	 * \param const double x: coeficiente del monomio
+     * \retval Monomio igual a la division de dos monomios
+    */
+	 ed::Monomio & operator / (const ed::Monomio &m, double const x);
 
-	///////////////////////////////////////////////////////////////////////////
+    /**
+     * \brief Operador binario de division
+     * \param const double x: coeficiente del monomio
+     * \param const ed::Monomio &m: referencia de un objeto monomio
+     * \retval Monomio igual a la division de dos monomios
+    */
+	 ed::Monomio & operator / (double const x, const ed::Monomio &m);
 
-	//! \name Operadores binarios de la división
+	//! \name Sobrecarga de los operadores de entrada y salida 
 
-	// COMPLETAR
+    /**
+     * \brief Operador de escritura
+     * \param istream &stream: flujo de datos
+     * \param ed::Monomio &m: referencia de un objeto monomio
+     * \retval Flujo de datos
+    */
+	 istream & operator >> (istream &stream, ed::Monomio &m);
 
+    /**
+     * \brief Operador de lectura
+     * \param ostream &stream: flujo de datos
+     * \param ed::Monomio &m: referencia de un objeto monomio
+     * \retval Flujo de datos
+    */
+	 ostream & operator << (ostream &stream, const ed::Monomio &m);
+}
 
-	/////////////////////////////////////////////////////////////////////////////
-
-	//! \name Sobrecarga de los operadores de entrada y salida
-
-	// COMPLETAR LOS COMENTARIOS DE DOXYGEN
-	 istream &operator>>(istream &stream, ed::Monomio &m);
-
-	// COMPLETAR LOS COMENTARIOS DE DOXYGEN
-	 ostream &operator<<(ostream &stream, ed::Monomio const &m);
-
-}  // Fin de namespace ed.
-
-#endif // _OperadoresExternosMonomios_HPP_
+#endif

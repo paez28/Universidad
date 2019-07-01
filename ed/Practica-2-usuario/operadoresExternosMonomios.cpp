@@ -1,120 +1,186 @@
-/*!
+/*! 
    \file  operadoresExternosMonomios.cpp
 	\brief Ficheros con el código de los operadores externos de la clase Monomio
 */
 
-
 //  Ficheros de cabecera
 #include <iostream>
-
 #include "operadoresExternosMonomios.hpp"
+#include <string>
 
+// Espacios de nombres
+using std::string;
+using std::endl;
 
-//  Se incluyen los operadores sobrecargados dentro del espacio de nombres ed
+// Se incluyen los operadores sobrecargados dentro del espacio de nombres ed
 namespace ed
 {
 	// Operadores de igualdad
 
-	// COMPLETAR
-
-	bool operator==(ed::Monomio const & m1, ed::Monomio const & m2)
-	{
-		// COMPLETAR Y MODIFICAR
-
-		// MODIFICAR: SE DEVUELVE UN VALOR ARBITRARIO PARA NO GENERAR AVISOS AL COMPILAR
-		return true;
+	bool operator == (const ed::Monomio &m1, const ed::Monomio &m2) {
+		if ( (m1.getGrado() == m2.getGrado()) && ( (m1.getCoeficiente() - m2.getCoeficiente() ) < COTA_ERROR) ) return true;
+		else return false;
 	}
 
-	// COMPLETAR LOS OTROS OPERADORES DE IGUALDAD
+	bool operator == (const ed::Monomio &m, const double x) {
+		if ( (m.getGrado() == 0) && ( (m.getCoeficiente() - x) < COTA_ERROR) ) return true;
+		else return false;
+	}
 
-
+	bool operator == (const double x, const ed::Monomio &m) {
+		if ( (m.getGrado() == 0) && ( (m.getCoeficiente() - x) < COTA_ERROR) ) return true;
+		else return false;
+	}
 
 	// Operadores de desigualdad
 
-	// COMPLETAR
-	bool operator!=(ed::Monomio const & m1, ed::Monomio const & m2)
-	{
-		// COMPLETAR Y MODIFICAR
-
-		// MODIFICAR: SE DEVUELVE UN VALOR ARBITRARIO PARA NO GENERAR AVISOS AL COMPILAR
-		return true;
+	bool operator != (const ed::Monomio &m1, const ed::Monomio &m2) {
+		return (!(m1==m2));
 	}
 
-	// COMPLETAR LOS OTROS OPERADORES DE DESIGUALDAD
+	bool operator != (const ed::Monomio &m, const double x) {
+		return (!(m==x));
+	}
 
-
-	////////////////////////////////////////////////////////////
+	bool operator != (const double x, const ed::Monomio &m) {
+		return (!(x==m));
+	}
 
 	// Operadores unarios prefijos
 
-	// COMPLETAR
-	ed::Monomio & operator+(ed::Monomio const & m)
-	{
-		// COMPLETAR Y MODIFICAR
-		// Se crea un nuevo objeto
-		ed::Monomio *nuevo = new ed::Monomio();
+	//  Operador de suma
+	ed::Monomio & operator + (const ed::Monomio &m) {
+		ed::Monomio *nuevo = new ed::Monomio (m);
 
-
-		// Se devuelve el resultado
 		return *nuevo;
 	}
 
-	// COMPLETAR EL OTRO OPERADOR UNARIO PREFIJO: resta
+	//  Operador de resta
+	ed::Monomio & operator - (const ed::Monomio &m) {
+		ed::Monomio *nuevo = new ed::Monomio (m);
+		nuevo -> setCoeficiente (-1 * (nuevo -> getCoeficiente()) );
 
+		return *nuevo;
+	}
 
-	////////////////////////////////////////////////////////////
 	// Operadores aritméticos binarios
+	
+	//  Operador de suma
+	ed::Monomio & operator + (const ed::Monomio &m1, const ed::Monomio &m2) {
+		assert (m1.getGrado() == m2.getGrado());
 
-	// Suma
-	ed::Monomio & operator+ (ed::Monomio const &m1, ed::Monomio const &m2)
-	{
-		// COMPLETAR Y MODIFICAR
-		// Se crea un nuevo objeto
-		ed::Monomio *nuevo = new ed::Monomio();
+		ed::Monomio *nuevo = new ed::Monomio (m1);
+		nuevo -> setCoeficiente (nuevo->getCoeficiente() + m2.getCoeficiente());
 
-
-		// Se devuelve el resultado
 		return *nuevo;
 	}
 
+	//  Operador de resta
+	ed::Monomio & operator - (const ed::Monomio &m1, const ed::Monomio &m2) {
+		assert (m1.getGrado() == m2.getGrado());
 
-	////////////
-	// Resta
+		ed::Monomio *nuevo = new ed::Monomio (m1);
+		nuevo -> setCoeficiente (nuevo->getCoeficiente() - m2.getCoeficiente());
 
-	// COMPLETAR
+		return *nuevo;
+	}
 
+	//  Operadores de multiplicacion
 
-	//////////////////
-	// Multiplicación
+	ed::Monomio & operator * (const ed::Monomio &m1, const ed::Monomio &m2) {
+		ed::Monomio *nuevo = new ed::Monomio (m1);
+		nuevo -> setCoeficiente (nuevo->getCoeficiente() * m2.getCoeficiente());
+		nuevo -> setGrado (nuevo->getGrado() + m2.getGrado());
 
-	// COMPLETAR
+		return *nuevo;
+	}
 
-	////////////
-	// División
+	ed::Monomio & operator * (const ed::Monomio &m, double const x) {
+		ed::Monomio *nuevo = new ed::Monomio (m);
+		nuevo -> setCoeficiente (nuevo->getCoeficiente() * x);
 
-	// COMPLETAR
+		return *nuevo;
+	}
 
+	ed::Monomio & operator * (double const x, const ed::Monomio &m) {
+		ed::Monomio *nuevo = new ed::Monomio (m);
+		nuevo -> setCoeficiente (nuevo->getCoeficiente() * x);
 
-	/////////////////////////////////////////////////////////////////////////////
+		return *nuevo;
+	}
+
+	//  Operadores de division
+
+	ed::Monomio & operator / (const ed::Monomio &m1, const ed::Monomio &m2) {
+		assert (m1.getGrado () >= m2.getGrado ());
+		assert (m2.getCoeficiente() != 0.0);
+
+		ed::Monomio *nuevo = new ed::Monomio (m1);
+		nuevo -> setCoeficiente (nuevo->getCoeficiente() / m2.getCoeficiente());
+		nuevo -> setGrado (nuevo->getGrado() - m2.getGrado());
+
+		return *nuevo;
+	}
+
+	ed::Monomio & operator / (const ed::Monomio &m, double const x) {
+		assert (x != 0.0);
+
+		ed::Monomio *nuevo = new ed::Monomio (m);
+		nuevo -> setCoeficiente (nuevo->getCoeficiente() / x);
+
+		return *nuevo;
+	}
+
+	ed::Monomio & operator / (double const x, const ed::Monomio &m) {
+		assert (m.getGrado() == 0);
+		assert (m.getCoeficiente() != 0.0);
+
+		ed::Monomio *nuevo = new ed::Monomio (m);
+		nuevo -> setCoeficiente (x / nuevo->getCoeficiente());
+
+		return *nuevo;
+	}
+
+	// Operadores adicionales
 
 	//  Sobrecarga del operador de entrada
-	istream &operator>>(istream &stream, ed::Monomio &m)
-	{
-		// COMPLETAR
+	istream & operator >> (istream &stream, ed::Monomio &m) {
+	double coeficiente;
+	int grado;
+	stream >> coeficiente;
+	stream >> grado;
+	m.setCoeficiente(coeficiente);
+	m.setGrado(grado);
+	return stream;
+	/*
+	string aux;
+	getline (stream, aux, ' ');
+	m.setCoeficiente (atof (aux.c_str()));
+	getline (stream, aux, '\n');
+	m.setGrado (atoi (aux.c_str()));
 
-   		// Se devuelve el flujo de entrada
-		return stream;
+	return stream;
+*/
 	}
-
 
 	//  Sobrecarga del operador de salida
-	ostream &operator<<(ostream &stream, ed::Monomio const &m)
-	{
-		// COMPLETAR
+	ostream & operator<< (ostream &stream, ed::Monomio const &m) {
+		if (m.getGrado() == 0) {
+			stream << m.getCoeficiente();
+			return stream;
+		}
+		if (m.getCoeficiente() == -1) {
+			stream << "-X";
+		} else if (m.getCoeficiente() == 1) {
+			stream << "X";
+		} else {
+			stream << m.getCoeficiente() << "X";
+		}
+		if (m.getGrado() > 1) {
+			stream << "^" << m.getGrado();
+		}
 
-		// Se devuelve el flujo de salida
 		return stream;
 	}
 
-
-}  // namespace ed
+}
