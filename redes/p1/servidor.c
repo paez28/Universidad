@@ -1,8 +1,5 @@
 /*
   REDES Práctica 1
-
-  Autor: Alejandro Siles Jiménez
-  Usuario UCO: i72sijia
 */
 
 // Ficheros de cabecera obligatorios
